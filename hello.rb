@@ -26,6 +26,8 @@ while(x > 0) do
   x -= 1
 end
 
+puts ""
+
 5.times do |i|
   print i.to_s + ","
 end

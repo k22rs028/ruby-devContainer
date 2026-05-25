@@ -24,5 +24,13 @@ public class Main {
         for(int  i = 0; i < 5; i++){
             System.out.print("*");
         }
+        String [] sa = new String[3];
+        sa[0] = "Java";
+        sa[1] = "Python";
+        sa[2] = "Ruby";
+
+        for(int i = 0; i < sa.length; i++){
+            System.out.print(sa[i] + ",");
+        }
     }
 }
