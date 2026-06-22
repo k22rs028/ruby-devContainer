@@ -8,7 +8,7 @@ port = 80
 path = '/~toshi/'
 
 sock = TCPSocket.new host, port
-cmd = 'GET ' + path + " HTTP/1.0\r\n\r\n"
+cmd = 'GET ' + path + " HTTP/1.1\r\n" + "Host: " + host + "\r\n\r\n"
 pp cmd
 sock.puts cmd
 
