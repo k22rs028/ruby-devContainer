@@ -3,16 +3,20 @@
 
 require 'socket'
 
+def server s
+  while line = s.gets
+    pp line
+    puts line
+    break if line == "\r\n"
+  end
+  s.close
+end
+
 gs = TCPServer.open 'http'
 loop do
   pp "start accept"
   s = gs.accept
 
-  while line = s.gets
-    pp line
-    s.puts line
-    break if line == "\r\n"
-  end
-  s.close
-  sleep 1
+  server s
+  sleep 10
 end
