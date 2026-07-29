@@ -5,6 +5,7 @@ require 'socket'
 
 def server s
   cmd, path, ver = s.gets.split " "
+  s.puts cmd, path, ver
   # HTTP/1.0 として返答
   # 1行目 HTTP/1.0 200 OK
   # 2行目 Content-Type: text/html
@@ -29,9 +30,9 @@ def server s
     s.print "HTTP/1.0 200 OK\r\n"
     s.print "Content-Type: application/json\r\n"
     s.print "\r\n"
-    s.puts "culculate"
+    cul = culculate path
     s.puts "{"
-    s.puts '"result": "' + "#{culculate path}" + '"'
+    s.puts '"result": "' + "#{cul}" + '"'
     s.puts "}"
   else
     file=path.slice 1..-1
@@ -57,30 +58,13 @@ def server s
 end
 
 def culculate path
-  path.slice! "/api/culc/"
-  path.slice! "?"
-  params = path.split "&"
-  params.each do |param|
-    key, value = param.split "="
-    if key == "a"
-      a = value.to_i
-    elsif key == "b"
-      b = value.to_i
-    elsif key == "op"
-      op = value
-    end
+  tpath = path.delete "/api/culc/"
+  if tpath.include? "+"
+    a, b = tpath.split "+"
+    result = a.to_i + b.to_i
   end
-  if op == "+"
-    return a + b
-  elsif op == "-"
-    return a - b
-  elsif op == "*"
-    return a * b
-  elsif op == "/"
-    return a / b
-  else
-    return "unknown operator"
-  end
+
+  return result
 
 end
 
