@@ -58,7 +58,8 @@ def server s
 end
 
 def culculate path
-  tpath = path.delete "/api/culc/"
+  tpath = path.gsub("/api/culc/", "")
+  tpath = tpath.gsub("%20", "")
   if tpath.include? "+"
     a, b = tpath.split "+"
     result = a.to_i + b.to_i
@@ -74,10 +75,7 @@ def culculate path
   else
     result = "error"
   end
-
-
   return result
-
 end
 
 gs = TCPServer.open 'http'
