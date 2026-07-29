@@ -62,7 +62,19 @@ def culculate path
   if tpath.include? "+"
     a, b = tpath.split "+"
     result = a.to_i + b.to_i
+  elsif tpath.include? "-"
+    a, b = tpath.split "-"
+    result = a.to_i - b.to_i
+  elsif tpath.include? "*"
+    a, b = tpath.split "*"
+    result = a.to_i * b.to_i
+  elsif tpath.include? "/"
+    a, b = tpath.split "/"
+    result = a.to_i / b.to_i
+  else
+    result = "error"
   end
+
 
   return result
 
