@@ -5,7 +5,7 @@ require 'socket'
 
 def server s
   cmd, path, ver = s.gets.split " "
-  s.puts cmd, path, ver
+  pp cmd, path, ver
   # HTTP/1.0 として返答
   # 1行目 HTTP/1.0 200 OK
   # 2行目 Content-Type: text/html
@@ -60,18 +60,8 @@ def server s
 end
 
 def culculate tpath
-  if tpath.include? "+"
-    a, b = tpath.split "+"
-    result = a.to_i + b.to_i
-  elsif tpath.include? "-"
-    a, b = tpath.split "-"
-    result = a.to_i - b.to_i
-  elsif tpath.include? "*"
-    a, b = tpath.split "*"
-    result = a.to_i * b.to_i
-  elsif tpath.include? "/"
-    a, b = tpath.split "/"
-    result = a.to_i / b.to_i
+  if tpath.match?(/\A\d+(\s*[+\-*\/]\s*\d+)*\z/)
+    result = eval(tpath)
   else
     result = "error"
   end
