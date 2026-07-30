@@ -61,7 +61,11 @@ end
 
 def culculate tpath
   if tpath.match?(/\A\d+(\s*[+\-*\/]\s*\d+)*\z/)
-    result = eval(tpath)
+    begin
+      result =eval(tpath)
+    rescue ZeroDivisionError
+      result = "error: division by zero"
+    end
   else
     result = "error"
   end
