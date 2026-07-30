@@ -30,7 +30,9 @@ def server s
     s.print "HTTP/1.0 200 OK\r\n"
     s.print "Content-Type: application/json\r\n"
     s.print "\r\n"
-    cul = culculate path
+    tpath = path.gsub("/api/culc/", "")
+    tpath = tpath.gsub("%20", "")
+    cul = culculate tpath
     s.puts "{"
     s.puts '"result": "' + "#{cul}" + '"'
     s.puts "}"
@@ -57,9 +59,7 @@ def server s
   s.close
 end
 
-def culculate path
-  tpath = path.gsub("/api/culc/", "")
-  tpath = tpath.gsub("%20", "")
+def culculate tpath
   if tpath.include? "+"
     a, b = tpath.split "+"
     result = a.to_i + b.to_i
