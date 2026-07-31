@@ -22,9 +22,22 @@ cmd += "\r\n"
 pp cmd
 sock.print cmd
 
+body = ""
 is_body = false
 while line = sock.gets
 #  pp line
-  puts line if is_body
+  body += line if is_body
   is_body = true if line == "\r\n"
+end
+
+if path.start_with?("/api/culc/")
+  if body =~ /"result":\s*"([^"]*)"/
+    result = $1
+    tpath = path.sub("/api/culc/", "")
+    puts "#{tpath} = #{result}"
+  else
+    puts body
+  end
+else
+  print body
 end
