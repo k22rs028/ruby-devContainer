@@ -60,9 +60,9 @@ def server s
 end
 
 def culculate tpath
-  if tpath.match?(/\A\d+(\s*[+\-*\/]\s*\d+)*\z/)
+  if tpath.match?(/\A\d+(?:\.\d+)?(\s*[+\-*\/]\s*\d+(?:\.\d+)?)*\z/)
     begin
-      result =eval(tpath)
+      result = eval(tpath)
     rescue ZeroDivisionError
       result = "error: division by zero"
     end
